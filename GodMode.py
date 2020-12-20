@@ -359,14 +359,14 @@ for i in range(4):
 
 # print(evaluate_you_won((10,0), (11,0),(3,0),(4,0), [(12,0), (13,0), (14,0), (3,3), (2,2)]))
 # print(count)
-#total_games = 10000
-#hands = 2598960
-#perc = all_calculate_percentage(all_cards, total_games)
-#print(*["StraFlu", "4 Kind", "FullHou", "Flush", "Street", "3 Kind", "2 Pair", "1 Pair", "HighCard"], sep='\t')
-#print(*count[:9], sep='\t')
-#print(*[int(40.0/hands*total_games), int(total_games/4164), int(total_games/693), int(total_games/508), int(total_games/254), int(total_games/46), int(total_games/20), int(total_games/1.37), int(total_games)], sep='\t')
+total_games = 10000
+hands = 2598960
+perc = all_calculate_percentage(all_cards, total_games)
+print(*["StraFlu", "4 Kind", "FullHou", "Flush", "Street", "3 Kind", "2 Pair", "1 Pair", "HighCard"], sep='\t')
+print(*count[:9], sep='\t')
+print(*[int(40.0/hands*total_games), int(total_games/4164), int(total_games/693), int(total_games/508), int(total_games/254), int(total_games/46), int(total_games/20), int(total_games/1.37), int(total_games)], sep='\t')
 
-while True:
+while False:
 	cards = copy.deepcopy(all_cards)
 	com_cards = [0,0,0,0,0]
 	print("Your Cards")
