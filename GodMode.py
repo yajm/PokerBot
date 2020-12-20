@@ -63,19 +63,22 @@ def to_non_number(cards):
 
 
 def longest_sequence(nums):
-	nums = to_non_color(set(nums))
+	nums = sorted(to_non_color(set(nums)))
 	max_cnt = 0
-	max_num = nums[0]
+	max_num = 0
 	cnt=0
+	last_num=-1
+	if 14 in nums:
+		nums.insert(0, 1)
 	for num in nums:
-		if num - 1 not in nums:
-			cnt = 0
-		while num in nums:
-			num += 1
-			cnt += 1
-		if cnt > max_cnt:
-			max_cnt = cnt
-			max_num = num-1
+		if num==last_num+1:
+			cnt+=1
+			if cnt > max_cnt:
+				max_cnt = cnt
+				max_num = num
+		elif num>last_num+1:
+			cnt=1
+		last_num=num
 	return max_cnt, max_num
 
 def find_same_card(nums):
@@ -147,7 +150,7 @@ def three_of_a_kind(cards):
 	count_dict = find_same_card(cards)
 	max_count = max(count_dict, key=count_dict.get)
 	if count_dict[max_count]==3:
-		print([i for i in cards if max_count==i[0]])
+		#print([i for i in cards if max_count==i[0]])
 		return max_count
 	else:
 		return 0
@@ -267,30 +270,37 @@ def evaluate_perc(you1,you2, opp1,opp2, com_cards):
 
 	op1 = straight_flush(cards1) 
 	if op1 > 0:
+		print("StraightFlush", cards1)
 		count[0]+=1
 
 	op1 = four_of_a_kind(cards1) 
 	if op1 > 0:
+		print("4 Kind", cards1)
 		count[1]+=1
 
 	op1 = full_house(cards1) 
 	if op1 > 0:
+		print("Full House", cards1)
 		count[2]+=1
 
 	op1 = flush(cards1) 
 	if op1 > 0:
+		print("Flush", cards1)
 		count[3]+=1
 
 	op1 = straight(cards1) 
 	if op1 > 0:
+		print("Street", cards1)
 		count[4]+=1
 
 	op1 = three_of_a_kind(cards1) 
 	if op1 > 0:
+		print("3 Kind", cards1)
 		count[5]+=1
 
 	op1 = two_pair(cards1) 
 	if op1[0] > 0:
+		print("2 Pair", cards1)
 		count[6]+=1
 
 
@@ -349,13 +359,14 @@ for i in range(4):
 
 # print(evaluate_you_won((10,0), (11,0),(3,0),(4,0), [(12,0), (13,0), (14,0), (3,3), (2,2)]))
 # print(count)
-total_games = 100000
-perc = all_calculate_percentage(all_cards, total_games)
-print(perc)
-print(*count[:9], sep='\t')
-print(*[int(total_games/72192), int(total_games/4164), int(total_games/693), int(total_games/508), int(total_games/254), int(total_games/46), int(total_games/20), int(total_games/1.37), int(total_games)], sep='\t')
+#total_games = 10000
+#hands = 2598960
+#perc = all_calculate_percentage(all_cards, total_games)
+#print(*["StraFlu", "4 Kind", "FullHou", "Flush", "Street", "3 Kind", "2 Pair", "1 Pair", "HighCard"], sep='\t')
+#print(*count[:9], sep='\t')
+#print(*[int(40.0/hands*total_games), int(total_games/4164), int(total_games/693), int(total_games/508), int(total_games/254), int(total_games/46), int(total_games/20), int(total_games/1.37), int(total_games)], sep='\t')
 
-while False:
+while True:
 	cards = copy.deepcopy(all_cards)
 	com_cards = [0,0,0,0,0]
 	print("Your Cards")
